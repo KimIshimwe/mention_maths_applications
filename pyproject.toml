@@ -1,0 +1,14 @@
+[project]
+name = "FSI_PROJECT"
+version = "0.1.0"
+dependecies = [
+    "fastapi",
+    "uvicorn",
+    "python-multipart",
+    "pydantic-settings",
+    "langchain",
+    "langchain-huggingface",
+    "langchain-qdrant",
+    "llama-parse",
+    "qdrant-client"
+]
