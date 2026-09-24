@@ -25,6 +25,7 @@ services:
       - qdrant_data:/qdrant/storage
     networks:
       - rag_network
+  #pour le frontend
 
   frontend:
     build:
