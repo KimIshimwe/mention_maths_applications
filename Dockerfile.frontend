@@ -1,0 +1,18 @@
+FROM python:3.11-slim
+
+ENV PYTHONBUFFERED=1
+# inst. de uv
+RUN pip install uvicorn
+
+WORKDIR /app
+# copy et installation des dépendances du front
+COPY frontend/requirements.txt .
+RUN uv pip install --system -r requirements.txt
+
+#code source
+COPY frontend/ ./frontend/
+
+#exposer le port pour streamlit
+EXPOSE 8501
+
+CMD ["streamlit", "run", "frontend/app.py", "--server.port", "8501", "--server.address", "0.0.0.0"]
