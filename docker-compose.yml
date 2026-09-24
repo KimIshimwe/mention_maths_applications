@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+ # pour le backend
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - qdrant
+    volumes:
+      - ./src:/app/src
+    networks:
+      - rag_network
+    # pour la base vectorielle
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    networks:
+      - rag_network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "8501:8501"
+    depends_on:
+      - api
+    volumes:
+      - ./frontend:/app/frontend
+    networks:
+      - rag_network
+   
+  # déclarer le volume pour qdrant
+volumes:
+  qdrant_data:
+
+#réseau interne
+networks:
+  rag_network:
+    driver: bridge
