@@ -11,6 +11,10 @@ def get_base_retriever(collection_name: str= "formation_docs"):
         embeddings = get_hf_embeddings()
         
     )
-    return qdrant.as_retriever(search_kwargs={"k":20})
+    return qdrant.as_retriever(search_kwargs={"k":50})
 
+    
+    
+    
+    
     
